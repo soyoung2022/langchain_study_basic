@@ -33,7 +33,7 @@
     - streamlit
     - PyPDF2
     - langchain_huggingface
-- 언어 모델 : gpt-4-turbo
+- 언어 모델 : gpt-3.5-turbo-16k
 - 벡터 데이터베이스 : FAISS
 - 임베딩 모델 : HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2"
 )
