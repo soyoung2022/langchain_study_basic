@@ -56,3 +56,30 @@
 
 👉🏻 아마 모델의 자체 제공 기능과 맞지 않거나 모델과 사용한 함수나 라이브러리 간 호환성이 맞지 않았던 것 같다. gpt-4-turbo-preview로 실험한 결과, gpt-4-turbo와 같이 아예 안되지는 않았지만, 요약은 해주나 다음과 같은 문장이 나왔다. 
 ![image](./images/pdf_summary_problem_test.png)
+
+### 📍 PDF 기반 RAG Chatbot
+> 사용자가 업로드한 PDF를 가지고 RAG 기반 답변을 수행하는 챗봇이다. 
+
+- 사용자의 질문이 들어오면 먼저 PDF 파일에서 내용을 찾아보고 질문과 찾은 결과를 LLM에 제공해 답변을 하는 방식이다. 
+- 언어 모델 : gpt-3.5-turbo-16k
+- ConversationBufferWindowMemory를 사용해 최근 k개의 대화에 대해서는 기억하고 있음 
+- LangChain에 제공하는 Retrieval 기반 QA 클래스에는 **RetrievalQA**와 **ConversationalRetrievalChain**의 2가지 종류가 있음 
+    - RetreivalQA : Retrieval만 사용해 답변 생성
+    - ConversationalRetrievalChain : Chat History와 Retrieval을 함께 사용해 답변 생성 
+    
+        👉🏻 chat_history.append((query, result["result"]로 {"chat_history": chat_history}에 질문과 답변의 대화 내역을 저장함 
+ 
+- 벡터 데이터베이스로는 FAISS를 사용함
+- 아쉬운 점 : 대화형 챗봇이 아니다. 
+    
+    👉🏻 따라서 질문 하나를 하고, 또 하나를 다시 보내면 기존 답장이 지워지고 새로운 답장이 보여지는 형식임. 🌈 다음 예정 : 대화형 챗봇 제작 
+
+**직접 실행한 결과 이미지**
+1. 실행 시 첫 화면
+![image](./images/pdf_rag_chat_0.png)
+2. pdf 파일 업로드 후 Upload 버튼 눌렀을 때 화면 
+![image](./images/pdf_rag_chat_1.png)
+3. 질문 적은 화면
+![image](./images/pdf_rag_chat_2.png)
+4. 질문에 대한 답변 생성된 화면
+![image](./images/pdf_rag_chat_3.png)
